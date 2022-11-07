@@ -69,7 +69,7 @@ export class PlacesService {
             this.isLoadingPLaces = false;
             this.places = resp.features;
 
-            this.MapService.createMarkersFromPlaces( this.places );
+            this.MapService.createMarkersFromPlaces( this.places, this.useLocation!);
         } );
   }
 }
