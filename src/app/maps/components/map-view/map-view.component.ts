@@ -25,6 +25,17 @@ export class MapViewComponent implements AfterViewInit {
       center: this.placesService.useLocation, // starting position [lng, lat]
       zoom: 9, // starting zoom
       }); 
+
+    const popup = new mapboxgl.Popup()
+        .setHTML(`
+        <h6>Here i am</h6>
+        <span>I am right here!</span>
+        `);
+
+    new mapboxgl.Marker({color: 'red'})
+        .setLngLat( this.placesService.useLocation)
+        .setPopup( popup )
+        .addTo(map)
     
     
   }
