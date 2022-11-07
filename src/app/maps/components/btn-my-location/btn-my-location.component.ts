@@ -25,7 +25,7 @@ export class BtnMyLocationComponent  {
     if ( !this.placesService.isUserLocationReady ) throw Error('There is no location from the user')
     if ( !this.mapService.isMapReady ) throw Error('There is no map available')
 
-    this.mapService.flyTo( this.placesService.useLocation! );
+    this.mapService.flyTo( this.placesService.userLocation! );
     
   }
 

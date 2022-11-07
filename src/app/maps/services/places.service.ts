@@ -8,15 +8,15 @@ import { MapService } from './map.service';
 })
 export class PlacesService {
 
-  public useLocation: [number, number] | undefined;
-  //public useLocation?: [number, number];
+  public userLocation: [number, number] | undefined;
+  //public userLocation?: [number, number];
   public isLoadingPLaces: boolean = false;
   public places: Feature[] = [];
 
   get isUserLocationReady(): boolean {
     //!  = no tiene ningun valor
     //!! = no hay un valor y lo niego (que sea true cuando SÍ tenga un valor)
-    return !!this.useLocation;
+    return !!this.userLocation;
   }
 
   constructor( private placesApiClient: PlacesApiClient,
@@ -30,8 +30,8 @@ export class PlacesService {
     
       navigator.geolocation.getCurrentPosition(
          ({ coords }) => {
-          this.useLocation = [ coords.longitude, coords.latitude];
-          resolve( this.useLocation )
+          this.userLocation = [ coords.longitude, coords.latitude];
+          resolve( this.userLocation )
         },
         (err) => {
           alert("Can't get GeoLocation");
@@ -53,13 +53,13 @@ export class PlacesService {
     }
 
 
-    if (!this.useLocation) throw Error('There is no userLocation');
+    if (!this.userLocation) throw Error('There is no userLocation');
 
       this.isLoadingPLaces = true;
 
     this.placesApiClient.get<PlacesResponse>(`/${query}.json`, {
       params: {
-        proximity: this.useLocation.join(',')
+        proximity: this.userLocation.join(',')
 
       }
     })
@@ -69,7 +69,7 @@ export class PlacesService {
             this.isLoadingPLaces = false;
             this.places = resp.features;
 
-            this.MapService.createMarkersFromPlaces( this.places, this.useLocation!);
+            this.MapService.createMarkersFromPlaces( this.places, this.userLocation!);
         } );
   }
 }

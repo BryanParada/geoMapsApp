@@ -18,12 +18,12 @@ export class MapViewComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    if ( !this.placesService.useLocation ) throw Error('There is no placesService.userlocation')
+    if ( !this.placesService.userLocation ) throw Error('There is no placesService.userlocation')
    
     const map = new mapboxgl.Map({
       container: this.mapDivElement.nativeElement, // container ID
       style: 'mapbox://styles/mapbox/light-v10', // style URL
-      center: this.placesService.useLocation, // starting position [lng, lat]
+      center: this.placesService.userLocation, // starting position [lng, lat]
       zoom: 9, // starting zoom
       }); 
 
@@ -34,7 +34,7 @@ export class MapViewComponent implements AfterViewInit {
         `);
 
     new mapboxgl.Marker({color: 'red'})
-        .setLngLat( this.placesService.useLocation)
+        .setLngLat( this.placesService.userLocation)
         .setPopup( popup )
         .addTo(map)
 
