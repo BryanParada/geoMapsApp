@@ -72,4 +72,8 @@ export class PlacesService {
             this.MapService.createMarkersFromPlaces( this.places, this.userLocation!);
         } );
   }
+
+  deletePlaces(){
+    this.places = [];
+  }
 }
